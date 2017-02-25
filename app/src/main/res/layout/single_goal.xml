@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/singleGoal"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/goalName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:id="@+id/dotContainer"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot1"
+            android:tag="dot1"
+            android:src="@drawable/circle_empty"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot2"
+            android:tag="dot2"
+            android:src="@drawable/circle_empty"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot3"
+            android:tag="dot3"
+            android:src="@drawable/circle_empty"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot4"
+            android:tag="dot4"
+            android:src="@drawable/circle_empty"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot5"
+            android:tag="dot5"
+            android:src="@drawable/circle_empty"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot6"
+            android:tag="dot6"
+            android:src="@drawable/circle_empty"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/dot7"
+            android:tag="dot7"
+            android:src="@drawable/circle_empty"
+            />
+    </LinearLayout>
+</LinearLayout>

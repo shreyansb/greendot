@@ -2,10 +2,14 @@ package org.shreyans.greendot.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ListView;
 
 import org.shreyans.greendot.R;
+import org.shreyans.greendot.models.Goal;
+import org.shreyans.greendot.util.GoalHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,8 +21,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "creating the MainActivity");
+        // create goals if they haven't been created yet
+        if (!GoalHelper.goalsCreated(this)) {
+            GoalHelper.createGoals(this);
+        }
+
+        // find active Goals
+        List<Goal> goals = GoalHelper.getActiveGoals();
+        GoalHelper.logGoals(goals);
+
+        // show the list of goals
+        SingleGoalAdapter adapter = new SingleGoalAdapter(this, (ArrayList)goals);
+
+        ListView goalList = (ListView) this.findViewById(R.id.goalsListView);
+        goalList.setAdapter(adapter);
     }
 
-    
+
+
 }
