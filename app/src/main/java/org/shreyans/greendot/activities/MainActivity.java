@@ -21,18 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // create goals if they haven't been created yet
-        if (!GoalHelper.goalsCreated(this)) {
-            GoalHelper.createGoals(this);
-        }
-
         // find active Goals
         List<Goal> goals = GoalHelper.getActiveGoals();
-        GoalHelper.logGoals(goals);
 
         // show the list of goals
         SingleGoalAdapter adapter = new SingleGoalAdapter(this, (ArrayList)goals);
-
         ListView goalList = (ListView) this.findViewById(R.id.goalsListView);
         goalList.setAdapter(adapter);
     }

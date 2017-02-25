@@ -37,6 +37,8 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.single_goal, parent, false);
         }
 
+        final ImageView heart = (ImageView) view.findViewById(R.id.heart);
+
         // show goal name
         final Goal goal = getItem(position);
         final TextView goalName = (TextView) view.findViewById(R.id.goalName);
@@ -48,7 +50,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
 
         // manage individual style and click handler
         final ImageView[] dotImages = getDotImages(view);
-        setDotImages(dotImages, goal, dot.num);
+        setDotImages(dotImages, heart, goal, dot.num);
 
         for (ImageView d: dotImages) {
             d.setOnClickListener(new View.OnClickListener() {
@@ -59,19 +61,13 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
                     int done;
 
                     if (dotIndex > dot.num) {
-                        Log.d(TAG, "done " + dotIndex);
                         done = dotIndex;
                     } else {
-                        Log.d(TAG, "undoing, now done " + (dotIndex - 1));
                         done = dotIndex - 1;
                     }
 
-                    setDotImages(dotImages, goal, done);
+                    setDotImages(dotImages, heart, goal, done);
                     DotHelper.setDoneForGoalAndWeek(goal, currentWeek, done);
-
-                    if (done == goal.freq - 1) {
-                        Log.d(TAG, "<3");
-                    }
                 }
             });
         }
@@ -79,7 +75,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
         return view;
     }
 
-    private void setDotImages(ImageView[] dots, Goal goal, int done) {
+    private void setDotImages(ImageView[] dots, ImageView heart, Goal goal, int done) {
         for (int i = 0; i < dots.length; i++) {
             if (i >= goal.freq) {
                 dots[i].setVisibility(View.INVISIBLE);
@@ -92,8 +88,15 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
                 dots[i].setImageResource(R.drawable.circle_empty);
             }
         }
+
+        if (done == goal.freq - 1) {
+            heart.setImageResource(R.drawable.heart_filled);
+        } else {
+            heart.setImageResource(R.drawable.heart_empty);
+        }
     }
 
+    // returns all the dot ImageViews
     public ImageView[] getDotImages(View view) {
         LinearLayout dotContainer = (LinearLayout) view.findViewById(R.id.dotContainer);
         final ImageView[] dotImages = new ImageView[dotContainer.getChildCount()];
