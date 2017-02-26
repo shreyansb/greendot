@@ -1,7 +1,5 @@
 package org.shreyans.greendot.util;
 
-import android.util.Log;
-
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import org.shreyans.greendot.models.Dot;
@@ -24,6 +22,7 @@ public class DotHelper {
             dot = new Dot();
             dot.goal = goal;
             dot.week = week;
+            dot.num = 0;
             dot.save();
         }
 

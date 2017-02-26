@@ -54,19 +54,37 @@ public class GoalHelper {
     public static void createGoals(Context context) {
         Log.d(TAG, "*** creating goals ***");
 
+        // exercise
         Goal goal1 = new Goal();
-        goal1.name = "Exercise";
+        goal1.name = "\uD83C\uDFCB";
         goal1.freq = 3;
         goal1.active = true;
         goal1.save();
         Log.d(TAG, "goal1: " + goal1);
 
+        // write
         Goal goal2 = new Goal();
-        goal2.name = "Write";
-        goal2.freq = 5;
+        goal2.name = "\uD83D\uDCDD";
+        goal2.freq = 7;
         goal2.active = true;
         goal2.save();
         Log.d(TAG, "goal2: " + goal2);
+
+        // sex
+        Goal goal3 = new Goal();
+        goal3.name = "\uD83C\uDF51";
+        goal3.freq = 3;
+        goal3.active = true;
+        goal3.save();
+        Log.d(TAG, "goal3: " + goal3);
+
+        // photos
+        Goal goal4 = new Goal();
+        goal4.name = "\uD83D\uDCF8";
+        goal4.freq = 1;
+        goal4.active = true;
+        goal4.save();
+        Log.d(TAG, "goal4: " + goal4);
 
         // save that we've created the goals
         SharedPreferences db = context.getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
