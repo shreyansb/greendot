@@ -4,6 +4,7 @@ package org.shreyans.greendot.activities;
 
 import android.content.Context;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import org.shreyans.greendot.R;
 import org.shreyans.greendot.models.Dot;
 import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.util.DotHelper;
-import org.shreyans.greendot.util.WeekCalendar;
+import org.shreyans.greendot.util.CalendarHelper;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
         goalName.setText(goal.name);
 
         // get dots data from the Dot database
-        final int currentWeek = WeekCalendar.getCurrentWeek();
+        final int currentWeek = CalendarHelper.getCurrentWeekNumber();
         final Dot dot = DotHelper.getDotForGoalAndWeek(goal, currentWeek);
 
         // update dots and heart to their current state
@@ -82,6 +83,8 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
     /* updates the image resources for dots and heart for a specific goal */
     private void setDotImages(ImageView[] dots, ImageView heart, Goal goal, int done) {
         for (int i = 0; i < dots.length; i++) {
+
+            dots[i].setVisibility(View.VISIBLE);
             if (i > goal.freq - 1) {
                 dots[i].setVisibility(View.INVISIBLE);
                 continue;

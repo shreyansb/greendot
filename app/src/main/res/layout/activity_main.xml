@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,15 +9,59 @@
     android:orientation="vertical"
     tools:context="org.shreyans.greendot.activities.MainActivity">
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"/>
-
-    <ListView
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/goalsListView"/>
-</LinearLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="20sp"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/goalsListView"/>
+
+        <FrameLayout
+            android:id="@+id/createGoalPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/newGoalButton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:elevation="0dp"
+        app:fabSize="mini"
+        app:backgroundTint="@color/greendot"
+        app:layout_anchor="@id/mainLinearLayout"
+        app:layout_anchorGravity="bottom|right|end"
+        />
+
+    <!--android.support.design.widget.FloatingActionButton
+        android:id="@+id/cancelGoalButton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:elevation="0dp"
+        app:fabSize="mini"
+        app:backgroundTint="@color/reddot"
+        app:layout_anchor="@id/mainLinearLayout"
+        app:layout_anchorGravity="bottom|left|end"
+        /-->
+
+</android.support.design.widget.CoordinatorLayout>
