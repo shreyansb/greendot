@@ -27,6 +27,21 @@ public class GoalHelper {
         return goals;
     }
 
+    public static Goal getGoalById(int id) {
+        Goal goal = SQLite.select()
+                .from(Goal.class)
+                .where(Goal_Table.id.is(id))
+                .querySingle();
+        return goal;
+    }
+
+    public static void deleteGoalById(int id) {
+        SQLite.delete()
+                .from(Goal.class)
+                .where(Goal_Table.id.is(id))
+                .execute();
+    }
+
     public static void logGoals(List<Goal> goals) {
         Log.d(TAG, goals.size() + " active goals:");
         for (Goal g: goals) {

@@ -21,6 +21,7 @@ import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.util.CalendarHelper;
 import org.shreyans.greendot.util.GoalHelper;
 import org.shreyans.greendot.events.GoalCreatedEvent;
+import org.shreyans.greendot.events.GoalDeletedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
     // event handler after a new goal is created
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGoalCreated(GoalCreatedEvent event) {
+        refreshGoals();
+    }
+
+    // event handler after a new goal is created
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGoalCreated(GoalDeletedEvent event) {
         refreshGoals();
     }
 

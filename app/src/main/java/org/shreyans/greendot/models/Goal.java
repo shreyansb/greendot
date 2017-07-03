@@ -10,7 +10,7 @@ import org.shreyans.greendot.DB;
 @Table(database=DB.class)
 public class Goal extends BaseModel {
     @PrimaryKey(autoincrement = true)
-    public long id;
+    public int id;
 
     @Column
     public String name;

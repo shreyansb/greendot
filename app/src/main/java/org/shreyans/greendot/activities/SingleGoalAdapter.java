@@ -2,8 +2,10 @@
 
 package org.shreyans.greendot.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
 import org.shreyans.greendot.R;
+import org.shreyans.greendot.events.GoalDeletedEvent;
 import org.shreyans.greendot.models.Dot;
 import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.util.DotHelper;
 import org.shreyans.greendot.util.CalendarHelper;
+import org.shreyans.greendot.util.GoalHelper;
 
 import java.util.ArrayList;
 
@@ -33,7 +39,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(int position, View view, final ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.single_goal, parent, false);
@@ -47,6 +53,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
         // show goal name
         final Goal goal = getItem(position);
         goalName.setText(goal.name);
+        goalName.setTag(Integer.valueOf(goal.id));
 
         // get dots data from the Dot database
         final int currentWeek = CalendarHelper.getCurrentWeekNumber();
@@ -55,7 +62,31 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
         // update dots and heart to their current state
         setDotImages(dotImages, heart, goal, dot.num);
 
-        // set up click handlers
+        // set up a long click handler to delete a goal
+        goalName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                final Goal goal = GoalHelper.getGoalById((Integer)view.getTag());
+                Log.d(TAG, "creating dialog to delete " + goal.name);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext())
+                        .setTitle("Delete " + goal.name + "?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                GoalHelper.deleteGoalById(goal.id);
+                                EventBus.getDefault().post(new GoalDeletedEvent());
+                            }
+                        });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                return true;
+            }
+        });
+
+        // set up click handlers for the dots
         for (ImageView d: dotImages) {
             d.setOnClickListener(new View.OnClickListener() {
                 @Override

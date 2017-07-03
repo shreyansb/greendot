@@ -12,7 +12,7 @@ import org.shreyans.greendot.DB;
 public class Dot extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
-    long id;
+    int id;
 
     @ForeignKey(stubbedRelationship = true)
     public Goal goal;
