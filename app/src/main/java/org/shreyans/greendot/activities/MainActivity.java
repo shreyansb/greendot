@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private static boolean createGoalFragmentVisible = false;
     private SingleGoalAdapter adapter;
     private ListView goalList;
+    private LinearLayout ftueMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
         goalList = (ListView) this.findViewById(R.id.goalsListView);
         goalList.setAdapter(adapter);
 
+        //
+        ftueMessage = (LinearLayout) this.findViewById(R.id.first_time_user_message);
+        if (goals.isEmpty()) {
+            ftueMessage.setVisibility(View.VISIBLE);
+        }
+
         // set up the button to create a new goal
         FloatingActionButton newGoalButton = (FloatingActionButton) this.findViewById(R.id.newGoalButton);
 
@@ -85,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // show the create goal fragment
                 if (!createGoalFragmentVisible) {
-                    Log.d(TAG, "??? about to show fragment");
                     FragmentManager fm = getSupportFragmentManager();
                     CreateGoalFragment createGoalFragment = CreateGoalFragment.newInstance();
                     createGoalFragment.show(fm, "fragment_create_goal");
@@ -111,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.clear();
         adapter.addAll(goals);
         adapter.notifyDataSetChanged();
+        if (goals.isEmpty()) {
+            ftueMessage.setVisibility(View.VISIBLE);
+        } else {
+            ftueMessage.setVisibility(View.INVISIBLE);
+        }
     }
 
 }
