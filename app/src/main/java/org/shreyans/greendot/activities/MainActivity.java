@@ -41,13 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         JodaTimeAndroid.init(this);
-
-        /* reset goals
-        GoalHelper.deleteAllGoals(this);
-        if (!GoalHelper.goalsCreated(this)) {
-            GoalHelper.createGoals(this);
-        }
-        */
     }
 
     @Override
