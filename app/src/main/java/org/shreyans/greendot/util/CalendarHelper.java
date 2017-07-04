@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
+import org.joda.time.LocalDateTime;
 
 import java.util.Locale;
 
@@ -14,7 +15,8 @@ public class CalendarHelper {
 
     // Returns the string to display in the app header
     public static String getWeekHeaderString() {
-        DateTime dt = new DateTime(Instant.now());
+        LocalDateTime dt = new LocalDateTime();
+        Log.d(TAG, "local date time: " + dt);
         int daysLeft = 8 - dt.getDayOfWeek();
         String daysString = getDaysString(daysLeft);
         String dayOfWeek = dt.toString("EEEE");

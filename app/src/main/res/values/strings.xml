@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">greendot</string>
+    <string name="yes">Yes</string>
+    <string name="create_goal_label">A new weekly goal</string>
+    <string name="goal_name_label">Emoji</string>
+    <string name="goal_freq_label">Days per week</string>
+    <string name="save_goal_button">Save</string>
+    <string name="invalid_goal_name">Pick one emoji for the goal name</string>
 </resources>

@@ -67,7 +67,6 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
             @Override
             public boolean onLongClick(View view) {
                 final Goal goal = GoalHelper.getGoalById((Integer)view.getTag());
-                Log.d(TAG, "creating dialog to delete " + goal.name);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext())
                         .setTitle("Delete " + goal.name + "?")
