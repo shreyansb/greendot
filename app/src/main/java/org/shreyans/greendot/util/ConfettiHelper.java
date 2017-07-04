@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.view.ViewGroup;
 
 import com.github.jinatonic.confetti.CommonConfetti;
+import com.github.jinatonic.confetti.ConfettiManager;
+import com.github.jinatonic.confetti.ConfettiSource;
 
 /**
  * Created by shreyans on 7/4/17.
@@ -24,11 +26,11 @@ public class ConfettiHelper {
 
     private int longConfettiMillis = 5000;
 
-    public void animateConfettiShort(ViewGroup viewGroup) {
-        CommonConfetti.rainingConfetti(viewGroup, confettiColors).oneShot();
+    public void heartConfetti(ViewGroup container, int heartX, int heartY) {
+        CommonConfetti.explosion(container, heartX, heartY, confettiColors).oneShot();
     }
 
-    public void animateConfettiLong(ViewGroup viewGroup) {
-        CommonConfetti.rainingConfetti(viewGroup, confettiColors).stream(longConfettiMillis);
+    public void screenConteffit(ViewGroup container) {
+        CommonConfetti.rainingConfetti(container, confettiColors).stream(longConfettiMillis);
     }
 }

@@ -19,7 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.shreyans.greendot.R;
 import org.shreyans.greendot.events.GoalCompletedEvent;
 import org.shreyans.greendot.events.GoalDeletedEvent;
-import org.shreyans.greendot.events.InitialGoalLoadCompleteEvent;
 import org.shreyans.greendot.models.Dot;
 import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.util.DotHelper;
@@ -102,15 +101,21 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
                         done = clickedDotNum - 1;
                     }
 
+                    DotHelper.saveNumDoneForGoalAndWeek(goal, currentWeek, done);
                     setDotImages(dotImages, heart, goal, done);
 
+                    DotHelper.saveNumDoneForGoalAndWeek(goal, currentWeek, done);
                     // only publish this event if the goal was completed
                     // via a new tap in the app, not from a previous completion
                     if (done == goal.freq) {
-                        EventBus.getDefault().post(new GoalCompletedEvent());
+                        int[] heartPosition = new int[2];
+                        heart.getLocationOnScreen(heartPosition);
+                        heartPosition[0] += heart.getWidth() / 2;
+                        heartPosition[1] -= heart.getHeight() / 2;
+                        EventBus.getDefault().post(new GoalCompletedEvent(heartPosition));
                     }
 
-                    DotHelper.saveNumDoneForGoalAndWeek(goal, currentWeek, done);
+
                 }
             });
         }

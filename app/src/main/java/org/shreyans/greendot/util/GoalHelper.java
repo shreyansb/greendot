@@ -6,9 +6,11 @@ import android.util.Log;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
+import org.shreyans.greendot.models.Dot;
 import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.models.Goal_Table;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class GoalHelper {
@@ -45,5 +47,17 @@ public class GoalHelper {
         goal.active = true;
         goal.save();
         return goal;
+    }
+
+    public static Boolean allGoalsCompleted() {
+        List<Goal> goals = getActiveGoals();
+        int week = CalendarHelper.getCurrentWeekNumber();
+        for (Goal goal : goals) {
+            Dot dot = DotHelper.getDotForGoalAndWeek(goal, week);
+            if (dot.num != goal.freq) {
+                return false;
+            }
+        }
+        return true;
     }
 }
