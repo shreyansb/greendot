@@ -11,7 +11,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(getClass().getName(), "we're in here, making a new application");
 
         // initialize DBFlow databases
         FlowManager.init(new FlowConfig.Builder(this)

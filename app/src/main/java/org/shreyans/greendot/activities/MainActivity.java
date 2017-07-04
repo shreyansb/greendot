@@ -2,14 +2,15 @@ package org.shreyans.greendot.activities;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -20,9 +21,11 @@ import org.shreyans.greendot.R;
 import org.shreyans.greendot.fragments.CreateGoalFragment;
 import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.util.CalendarHelper;
+import org.shreyans.greendot.util.ConfettiHelper;
 import org.shreyans.greendot.util.GoalHelper;
 import org.shreyans.greendot.events.GoalCreatedEvent;
 import org.shreyans.greendot.events.GoalDeletedEvent;
+import org.shreyans.greendot.events.GoalCompletedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private SingleGoalAdapter adapter;
     private ListView goalList;
     private LinearLayout ftueMessage;
+    public ViewGroup mMainActivityView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        mMainActivityView = (ViewGroup) findViewById(android.R.id.content);
+
         // Set the date header
         TextView header = (TextView) this.findViewById(R.id.header);
         header.setText(CalendarHelper.getWeekHeaderString());
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         goalList = (ListView) this.findViewById(R.id.goalsListView);
         goalList.setAdapter(adapter);
 
-        //
+        // show the FTUE message if there aren't any goals
         ftueMessage = (LinearLayout) this.findViewById(R.id.first_time_user_message);
         if (goals.isEmpty()) {
             ftueMessage.setVisibility(View.VISIBLE);
@@ -94,18 +100,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // event handler after a new goal is created
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGoalCreated(GoalCreatedEvent event) {
-        refreshGoals();
-    }
-
-    // event handler after a new goal is created
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGoalCreated(GoalDeletedEvent event) {
-        refreshGoals();
-    }
-
+    // updates the list view showing the active goals
+    // called when a user creates/updates/deletes any goals
     public void refreshGoals() {
         List<Goal> goals = GoalHelper.getActiveGoals();
         adapter.clear();
@@ -118,4 +114,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // event handler after a goal is completed
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGoalCompleted(GoalCompletedEvent event) {
+        ConfettiHelper cf = new ConfettiHelper();
+        cf.animateConfettiShort(mMainActivityView);
+    }
+
+    // event handler after a new goal is created
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGoalCreated(GoalCreatedEvent event) {
+        refreshGoals();
+    }
+
+    // event handler after a goal is deleted
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGoalCreated(GoalDeletedEvent event) {
+        refreshGoals();
+    }
 }

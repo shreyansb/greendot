@@ -14,11 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.shreyans.greendot.R;
+import org.shreyans.greendot.events.GoalCompletedEvent;
 import org.shreyans.greendot.events.GoalDeletedEvent;
+import org.shreyans.greendot.events.InitialGoalLoadCompleteEvent;
 import org.shreyans.greendot.models.Dot;
 import org.shreyans.greendot.models.Goal;
 import org.shreyans.greendot.util.DotHelper;
@@ -102,7 +103,14 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
                     }
 
                     setDotImages(dotImages, heart, goal, done);
-                    DotHelper.setDoneForGoalAndWeek(goal, currentWeek, done);
+
+                    // only publish this event if the goal was completed
+                    // via a new tap in the app, not from a previous completion
+                    if (done == goal.freq) {
+                        EventBus.getDefault().post(new GoalCompletedEvent());
+                    }
+
+                    DotHelper.saveNumDoneForGoalAndWeek(goal, currentWeek, done);
                 }
             });
         }

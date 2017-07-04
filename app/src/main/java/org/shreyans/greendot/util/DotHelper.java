@@ -29,7 +29,7 @@ public class DotHelper {
         return dot;
     }
 
-    public static void setDoneForGoalAndWeek(Goal goal, int week, int done) {
+    public static void saveNumDoneForGoalAndWeek(Goal goal, int week, int done) {
         Dot dot = getDotForGoalAndWeek(goal, week);
         dot.num = done;
         dot.save();
