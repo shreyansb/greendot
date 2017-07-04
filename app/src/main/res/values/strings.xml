@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">greendot</string>
+    <string name="app_name">Greendot</string>
     <string name="yes">Yes</string>
     <string name="create_goal_label">A new weekly goal</string>
     <string name="goal_name_label">Emoji</string>
