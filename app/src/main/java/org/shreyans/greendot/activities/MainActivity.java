@@ -118,13 +118,14 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onGoalCompleted(GoalCompletedEvent event) {
         ConfettiHelper cf = new ConfettiHelper();
+
+        // always animate confetti from the completed heart
+        int[] heartPosition = event.getHeartPosition();
+        cf.heartConfetti(mMainActivityView, heartPosition[0], heartPosition[1]);
+
+        // if all the goals are done, also animate confetti from the top of the screen
         if (GoalHelper.allGoalsCompleted()) {
-            // if all the goals are done, animate confetti from the top of the screen
             cf.screenConteffit(mMainActivityView);
-        } else {
-            // otherwise, only animate confetti from the completed heart
-            int[] heartPosition = event.getHeartPosition();
-            cf.heartConfetti(mMainActivityView, heartPosition[0], heartPosition[1]);
         }
     }
 

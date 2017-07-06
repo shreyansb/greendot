@@ -46,7 +46,7 @@
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:paddingBottom="20dp"
-                android:text="Welcome to Greendot! A simple way to track weekly goals."
+                android:text="@string/ftue_intro"
                 />
 
             <TextView
@@ -54,14 +54,14 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:paddingBottom="20dp"
-                android:text="To create a goal, tap the green button on the bottom right."
+                android:text="@string/ftue_create_goal"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="To delete a goal, hold down on the goal emoji/name."
+                android:text="@string/ftue_delete_goal"
                 />
 
         </LinearLayout>

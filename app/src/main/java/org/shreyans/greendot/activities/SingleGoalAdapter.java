@@ -54,6 +54,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
         final Goal goal = getItem(position);
         goalName.setText(goal.name);
         goalName.setTag(Integer.valueOf(goal.id));
+        view.setTag(Integer.valueOf(goal.id));
 
         // get dots data from the Dot database
         final int currentWeek = CalendarHelper.getCurrentWeekNumber();
@@ -63,7 +64,7 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
         setDotImages(dotImages, heart, goal, dot.num);
 
         // set up a long click handler to delete a goal
-        goalName.setOnLongClickListener(new View.OnLongClickListener() {
+        view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 final Goal goal = GoalHelper.getGoalById((Integer)view.getTag());
@@ -104,7 +105,6 @@ public class SingleGoalAdapter extends ArrayAdapter<Goal> {
                     DotHelper.saveNumDoneForGoalAndWeek(goal, currentWeek, done);
                     setDotImages(dotImages, heart, goal, done);
 
-                    DotHelper.saveNumDoneForGoalAndWeek(goal, currentWeek, done);
                     // only publish this event if the goal was completed
                     // via a new tap in the app, not from a previous completion
                     if (done == goal.freq) {
